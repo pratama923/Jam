@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>Jam Digital · Info di Bawah Jam</title>
+  <title>Jam Digital · Dengan Detik</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&display=swap" rel="stylesheet">
   <style>
     /* RESET TOTAL & FULLSCREEN */
@@ -54,10 +54,10 @@
       width: 100vw;
       height: 100vh;
       display: flex;
-      flex-direction: column;      /* Ubah ke column agar jam di atas, info di bawah */
+      flex-direction: column;
       align-items: center;
-      justify-content: center;     /* Tengah vertikal juga */
-      gap: clamp(1rem, 4vh, 3rem); /* Jarak vertikal antara jam dan info */
+      justify-content: center;
+      gap: clamp(0.5rem, 3vh, 2rem);
       padding: 2rem;
       background: rgba(8, 20, 16, 0.15);
       border: none;
@@ -69,11 +69,11 @@
       cursor: pointer;
     }
 
-    /* TIME — tetap besar di atas */
+    /* TIME — dengan detik (3 segment) */
     .time {
-      font-size: clamp(5rem, 25vw, 16rem);  /* Lebih besar dan responsif */
+      font-size: clamp(3rem, 15vh, 10rem);
       font-weight: 800;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.1em;
       color: #e6fffa;
       text-shadow: 0 0 20px #00ffe1, 
                    0 0 60px #00b3a0, 
@@ -83,7 +83,6 @@
       font-variant-numeric: tabular-nums;
       white-space: nowrap;
       transition: text-shadow 0.2s;
-      margin-bottom: 0;            /* Jarak diatur oleh gap container */
     }
 
     .clock-landscape:hover .time {
@@ -92,17 +91,17 @@
                    0 0 150px #00ccb8;
     }
 
-    /* Container info di bawah jam — tanpa border kiri */
+    /* Container info di bawah jam */
     .info {
       display: flex;
       flex-direction: column;
-      align-items: center;         /* Tengah horizontal */
-      gap: 0.5rem;                 /* Jarak antara date dan label */
+      align-items: center;
+      gap: 0.3rem;
       text-align: center;
     }
 
     .date {
-      font-size: clamp(1.4rem, 6vw, 3.5rem);
+      font-size: clamp(1rem, 5vh, 2.5rem);
       font-weight: 500;
       color: #f0fffe;
       letter-spacing: 0.1em;
@@ -111,21 +110,21 @@
     }
 
     .label {
-      font-size: clamp(0.9rem, 2.5vw, 1.5rem);
+      font-size: clamp(0.7rem, 2.5vh, 1.2rem);
       font-weight: 300;
-      letter-spacing: 0.5em;
+      letter-spacing: 0.4em;
       text-transform: uppercase;
       color: #c0fff0;
       background: rgba(0, 40, 30, 0.35);
-      padding: 0.6em 1.8em;
+      padding: 0.5em 1.5em;
       border-radius: 60px;
       backdrop-filter: blur(10px);
       border: 1px solid #00ffcc60;
       box-shadow: 0 0 30px #00ffcc40;
-      display: inline-block;       /* Agar padding tepat */
+      display: inline-block;
     }
 
-    /* garis bawah dekoratif (tetap ada) */
+    /* garis bawah dekoratif */
     .clock-landscape::after {
       content: '';
       position: absolute;
@@ -140,42 +139,87 @@
       pointer-events: none;
     }
 
-    /* Responsive untuk landscape dan portrait */
+    /* ===== ORIENTASI LANDSCAPE ===== */
     @media (orientation: landscape) {
       .clock-landscape {
-        padding: 3rem 4rem;
-        gap: clamp(1rem, 6vh, 4rem);
+        flex-direction: row;
+        gap: clamp(2rem, 8vw, 6rem);
+        padding: 1rem 3rem;
       }
-    }
-
-    @media (max-width: 800px) and (orientation: landscape) {
+      
       .time {
-        font-size: 18vh;           /* Ukuran berdasarkan tinggi layar */
-        letter-spacing: 4px;
+        font-size: clamp(4rem, 20vh, 12rem);
+        letter-spacing: 0.15em;
       }
+      
+      .info {
+        align-items: flex-start;
+        border-left: 2px solid #00ffddb0;
+        padding-left: clamp(1rem, 3vw, 3rem);
+        gap: 0.5rem;
+      }
+      
       .date {
-        font-size: 5vh;
+        font-size: clamp(1.2rem, 5vw, 2.8rem);
       }
+      
       .label {
-        font-size: 2.2vh;
-        letter-spacing: 4px;
-        padding: 0.4em 1.5em;
+        font-size: clamp(0.8rem, 2vw, 1.2rem);
+        letter-spacing: 0.4em;
+        padding: 0.4em 1.2em;
+      }
+      
+      .clock-landscape::after {
+        bottom: 15%;
+        width: 40%;
+        left: 30%;
+        opacity: 0.5;
       }
     }
 
+    /* Landscape di layar kecil */
+    @media (orientation: landscape) and (max-height: 600px) {
+      .time {
+        font-size: clamp(3rem, 15vh, 8rem);
+      }
+      
+      .date {
+        font-size: clamp(1rem, 4vh, 2rem);
+      }
+      
+      .label {
+        font-size: clamp(0.6rem, 1.8vh, 1rem);
+        padding: 0.3em 1em;
+      }
+    }
+
+    /* Portrait mode */
     @media (orientation: portrait) {
+      .clock-landscape {
+        flex-direction: column;
+        gap: clamp(1rem, 4vh, 3rem);
+      }
+      
       .time {
-        font-size: 20vw;           /* Ukuran berdasarkan lebar */
+        font-size: clamp(4rem, 20vw, 12rem);
       }
+      
+      .info {
+        align-items: center;
+        border-left: none;
+        padding-left: 0;
+      }
+      
       .date {
-        font-size: 6vw;
+        font-size: clamp(1.2rem, 5vw, 2.5rem);
       }
+      
       .label {
-        font-size: 3.5vw;
+        font-size: clamp(0.8rem, 3vw, 1.2rem);
       }
     }
 
-    /* Safe area untuk notched devices */
+    /* Safe area */
     @supports (padding: max(0px)) {
       .clock-landscape {
         padding-left: max(2rem, env(safe-area-inset-left));
@@ -185,7 +229,7 @@
       }
     }
 
-    /* instruksi kecil (fade out) */
+    /* instruksi kecil */
     .instruction {
       position: fixed;
       bottom: 20px;
@@ -205,10 +249,10 @@
 </head>
 <body>
   <div class="clock-landscape" id="fullscreenTrigger">
-    <!-- Waktu utama di ATAS -->
-    <div class="time" id="time">4:21</div>
+    <!-- Waktu utama DENGAN DETIK -->
+    <div class="time" id="time">04:21:30</div>
 
-    <!-- Informasi (hari/tanggal & label) di BAWAH jam -->
+    <!-- Informasi di bawah (atau samping di landscape) -->
     <div class="info">
       <div class="date" id="date">Sabtu, 21 Feb</div>
       <div class="label">HORIZON · EDT</div>
@@ -219,7 +263,7 @@
 
   <script>
     (function() {
-      // ===== FUNGSI JAM =====
+      // ===== FUNGSI JAM DENGAN DETIK =====
       const timeElement = document.getElementById('time');
       const dateElement = document.getElementById('date');
 
@@ -227,16 +271,13 @@
         const now = new Date();
         const hours = String(now.getHours()).padStart(2, '0');
         const minutes = String(now.getMinutes()).padStart(2, '0');
-        // Detik tidak ditampilkan sesuai permintaan (contoh gambar 4:21 tanpa detik)
-        // Tapi kita bisa tampilkan jam:menit saja
-        timeElement.textContent = `${hours}:${minutes}`;
+        const seconds = String(now.getSeconds()).padStart(2, '0'); // DETIK KEMBALI
+        timeElement.textContent = `${hours}:${minutes}:${seconds}`;
         
-        // Format tanggal: Hari, Tanggal Bulan (tanpa tahun, sesuai gambar)
         const dayName = now.toLocaleDateString('id-ID', { weekday: 'long' });
         const dayNumber = now.getDate();
-        const monthName = now.toLocaleDateString('id-ID', { month: 'short' }); // "Feb"
+        const monthName = now.toLocaleDateString('id-ID', { month: 'short' });
         
-        // Agar persis seperti gambar: "Sabtu, 21 Feb"
         dateElement.textContent = `${dayName}, ${dayNumber} ${monthName}`;
       }
 
@@ -297,7 +338,6 @@
       window.addEventListener('gesturechange', e => e.preventDefault());
       window.addEventListener('gestureend', e => e.preventDefault());
 
-      // Sembunyikan address bar
       window.addEventListener('load', function() {
         window.scrollTo(0, 1);
       });
