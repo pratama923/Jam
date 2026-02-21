@@ -2,10 +2,11 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jam Digital · Landscape Estetik</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Jam Digital · Fullscreen (No Address Bar)</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&display=swap" rel="stylesheet">
   <style>
+    /* RESET TOTAL & FULLSCREEN */
     * {
       margin: 0;
       padding: 0;
@@ -16,180 +17,210 @@
       width: 100%;
       height: 100%;
       overflow: hidden;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
     }
 
     body {
-      /* background gambar langsung dari link yang diberikan */
       background-image: url("https://large-blush-etdigtzzk0.edgeone.app/6c99b5492a6950ca1413246beb804662.jpg");
       background-size: cover;
-      background-position: center 30%;     /* geser sedikit agar fokus lebih artistik */
+      background-position: center 30%;
       background-repeat: no-repeat;
       display: flex;
       align-items: center;
       justify-content: center;
       font-family: 'Orbitron', sans-serif;
-      position: relative;
     }
 
-    /* overlay gelap dengan efek gradien & blur — lebih dalam, tetap estetik */
+    /* overlay gelap */
     body::before {
       content: "";
-      position: fixed;
+      position: absolute;
       inset: 0;
-      background: radial-gradient(circle at 20% 50%, rgba(0, 30, 30, 0.4) 0%, rgba(0, 0, 0, 0.7) 90%);
+      background: radial-gradient(circle at 20% 50%, rgba(0, 30, 30, 0.4) 0%, rgba(0, 0, 0, 0.75) 95%);
       backdrop-filter: blur(8px) saturate(180%);
       -webkit-backdrop-filter: blur(8px) saturate(180%);
-      z-index: 0;
+      z-index: 1;
+      pointer-events: none;
     }
 
-    /* container utama — LANDSCAPE lebar, rendah, futuristik */
+    /* container jam — fullscreen & interaktif */
     .clock-landscape {
       position: relative;
-      z-index: 10;
+      z-index: 20;
+      width: 100vw;
+      height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: clamp(30px, 6vw, 80px);
-      padding: 2.2rem 4rem;
-      background: rgba(8, 20, 16, 0.25);
-      border-radius: 48px;
-      border: 1px solid rgba(0, 255, 200, 0.25);
-      box-shadow: 0 40px 100px rgba(0, 20, 10, 0.8),
-                  0 0 0 2px rgba(0, 255, 213, 0.1) inset,
-                  0 0 50px #00ffbb30;
-      backdrop-filter: blur(30px) brightness(1.2);
-      -webkit-backdrop-filter: blur(30px) brightness(1.2);
-      transform: scale(1);
-      transition: box-shadow 0.3s ease;
+      gap: clamp(30px, 6vw, 100px);
+      padding: 2rem 4rem;
+      background: rgba(8, 20, 16, 0.15);
+      border: none;
+      box-shadow: 0 0 150px rgba(0, 255, 213, 0.2) inset,
+                  0 0 0 1px rgba(0, 255, 200, 0.2) inset;
+      backdrop-filter: blur(16px) brightness(1.1);
+      -webkit-backdrop-filter: blur(16px) brightness(1.1);
+      transition: box-shadow 0.3s ease, backdrop-filter 0.3s;
+      cursor: pointer; /* kasih tahu bisa diklik */
     }
 
-    .clock-landscape:hover {
-      box-shadow: 0 50px 120px rgba(0, 255, 213, 0.3), 0 0 0 3px #00ffcc40 inset;
-    }
-
-    /* bagian jam — besar, glowing, jelas */
+    /* TIME */
     .time {
-      font-size: 130px;
+      font-size: clamp(4rem, 18vw, 14rem);
       font-weight: 800;
-      letter-spacing: 12px;
-      color: #bffff0;
-      text-shadow: 0 0 15px #00ffe1, 0 0 45px #00c8b0, 2px 2px 0px #00100e;
+      letter-spacing: 0.15em;
+      color: #e6fffa;
+      text-shadow: 0 0 20px #00ffe1, 
+                   0 0 60px #00b3a0, 
+                   0 0 120px #007a6e,
+                   4px 4px 0px #00100e;
       line-height: 1;
       font-variant-numeric: tabular-nums;
-      transition: text-shadow 0.2s;
       white-space: nowrap;
+      transition: text-shadow 0.2s;
     }
 
     .clock-landscape:hover .time {
-      text-shadow: 0 0 25px #a0fff0, 0 0 70px #00ffe1, 0 0 120px #007a6e;
+      text-shadow: 0 0 35px #b5fff5, 
+                   0 0 90px #00ffe1, 
+                   0 0 150px #00ccb8;
     }
 
-    /* info samping — lebih estetis, rapi */
+    /* info samping */
     .info {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 14px;
-      border-left: 2px solid #00ffdd60;
-      padding-left: 30px;
+      gap: clamp(10px, 2vh, 20px);
+      border-left: 2.5px solid #00ffddb0;
+      padding-left: clamp(20px, 4vw, 50px);
     }
 
     .date {
-      font-size: 28px;
+      font-size: clamp(1.2rem, 5vw, 3rem);
       font-weight: 500;
-      color: #f0ffff;
-      letter-spacing: 2.5px;
-      text-shadow: 0 0 20px #00ffe0, 0 2px 5px black;
+      color: #f0fffe;
+      letter-spacing: 0.1em;
+      text-shadow: 0 0 25px #00ffe0, 0 2px 8px black;
       white-space: nowrap;
     }
 
     .label {
-      font-size: 14px;
+      font-size: clamp(0.7rem, 2vw, 1.2rem);
       font-weight: 300;
-      letter-spacing: 7px;
+      letter-spacing: 0.5em;
       text-transform: uppercase;
-      color: #a0f0e0;
-      background: rgba(0, 40, 30, 0.4);
-      padding: 6px 18px;
-      border-radius: 40px;
+      color: #c0fff0;
+      background: rgba(0, 40, 30, 0.35);
+      padding: 0.6em 1.8em;
+      border-radius: 60px;
       backdrop-filter: blur(10px);
-      border: 1px solid #00ffcc40;
-      box-shadow: 0 0 20px #00ffcc20;
+      border: 1px solid #00ffcc60;
+      box-shadow: 0 0 30px #00ffcc40;
     }
 
-    /* micro-loader / sentuhan kecil */
-    .glow-dot {
-      display: none;
-    }
-
-    /* responsive — landscape di hp tetap seimbang */
-    @media (max-width: 800px) {
-      .clock-landscape {
-        gap: 20px;
-        padding: 1.5rem 2rem;
-        border-radius: 40px;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-
-      .time {
-        font-size: 80px;
-        letter-spacing: 6px;
-      }
-
-      .info {
-        border-left: none;
-        padding-left: 0;
-        align-items: center;
-        gap: 8px;
-        width: 100%;
-      }
-
-      .date {
-        font-size: 20px;
-        letter-spacing: 1px;
-        white-space: normal;
-        text-align: center;
-      }
-
-      .label {
-        letter-spacing: 4px;
-        font-size: 12px;
-        padding: 4px 12px;
-      }
-    }
-
-    /* untuk hp kecil (landscape tetap proporsional) */
-    @media (max-width: 480px) and (orientation: landscape) {
-      .time {
-        font-size: 60px;
-        letter-spacing: 4px;
-      }
-      .clock-landscape {
-        padding: 1rem 1.5rem;
-      }
-      .date {
-        font-size: 16px;
-      }
-    }
-
-    /* sentimen tambahan — garis bawah berkilau (opsional) */
+    /* garis bawah dekoratif */
     .clock-landscape::after {
       content: '';
       position: absolute;
-      bottom: -12px;
-      left: 15%;
-      width: 70%;
+      bottom: 5%;
+      left: 20%;
+      width: 60%;
       height: 2px;
       background: linear-gradient(90deg, transparent, #00ffdd, #a0fff0, #00ffdd, transparent);
-      filter: blur(2px);
-      opacity: 0.7;
+      filter: blur(3px);
+      opacity: 0.8;
       border-radius: 100%;
+      pointer-events: none;
+    }
+
+    /* responsive */
+    @media (orientation: landscape) {
+      .clock-landscape {
+        gap: clamp(20px, 8vw, 150px);
+        padding: 2rem 6rem;
+      }
+    }
+
+    @media (max-width: 800px) and (orientation: landscape) {
+      .clock-landscape {
+        padding: 1rem 2rem;
+        gap: 15px;
+      }
+      .time {
+        font-size: 15vh;
+        letter-spacing: 4px;
+      }
+      .info {
+        border-left-width: 2px;
+        padding-left: 15px;
+      }
+      .date {
+        font-size: 4.5vh;
+        white-space: nowrap;
+      }
+      .label {
+        letter-spacing: 4px;
+        font-size: 1.8vh;
+        padding: 0.4em 1.2em;
+      }
+    }
+
+    @media (orientation: portrait) {
+      .clock-landscape {
+        flex-direction: column;
+        gap: 5vh;
+        padding: 4vh 6vw;
+      }
+      .info {
+        border-left: none;
+        border-top: 2px solid #00ffddb0;
+        padding-left: 0;
+        padding-top: 3vh;
+        align-items: center;
+      }
+      .date {
+        font-size: 6vw;
+      }
+      .label {
+        font-size: 3vw;
+      }
+    }
+
+    /* safe area */
+    @supports (padding: max(0px)) {
+      .clock-landscape {
+        padding-left: max(2rem, env(safe-area-inset-left));
+        padding-right: max(2rem, env(safe-area-inset-right));
+        padding-top: max(2rem, env(safe-area-inset-top));
+        padding-bottom: max(2rem, env(safe-area-inset-bottom));
+      }
+    }
+
+    /* pesan instruksi kecil (akan fade out) */
+    .instruction {
+      position: fixed;
+      bottom: 20px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      color: rgba(255,255,255,0.5);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 12px;
+      letter-spacing: 2px;
+      z-index: 30;
+      pointer-events: none;
+      transition: opacity 1s;
+      text-shadow: 0 0 5px black;
     }
   </style>
 </head>
 <body>
-  <div class="clock-landscape">
+  <div class="clock-landscape" id="fullscreenTrigger">
     <!-- Waktu utama -->
     <div class="time" id="time">22:14:07</div>
 
@@ -200,43 +231,106 @@
     </div>
   </div>
 
+  <div class="instruction" id="instruction">↗️ TAP UNTUK FULLSCREEN</div>
+
   <script>
     (function() {
-      "use strict";
-
+      // ===== FUNGSI JAM =====
       const timeElement = document.getElementById('time');
       const dateElement = document.getElementById('date');
 
-      // opsi format tanggal lebih estetik (Indonesia)
-      const dateOptions = {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: '2-digit'
-      };
-
       function updateClock() {
         const now = new Date();
-
-        // jam: menit: detik dengan leading zero
         const hours = String(now.getHours()).padStart(2, '0');
         const minutes = String(now.getMinutes()).padStart(2, '0');
         const seconds = String(now.getSeconds()).padStart(2, '0');
         timeElement.textContent = `${hours}:${minutes}:${seconds}`;
 
-        // tanggal dengan bahasa Indonesia
         const dayName = now.toLocaleDateString('id-ID', { weekday: 'long' });
         const dayNumber = String(now.getDate()).padStart(2, '0');
         const monthName = now.toLocaleDateString('id-ID', { month: 'long' });
         const year = now.getFullYear();
 
-        // Contoh: "Sabtu, 22 Maret 2025" tanpa angka 0 di depan (sudah pakai padStart)
         dateElement.textContent = `${dayName}, ${dayNumber} ${monthName} ${year}`;
       }
 
-      // update tiap detik
       setInterval(updateClock, 1000);
-      updateClock(); // langsung tampilkan
+      updateClock();
+
+      // ===== FULLSCREEN LOGIC (HILANGKAN ADDRESS BAR) =====
+      const container = document.getElementById('fullscreenTrigger');
+      const instructionEl = document.getElementById('instruction');
+
+      // Fungsi masuk fullscreen
+      function enterFullscreen() {
+        const elem = document.documentElement; // fullscreen seluruh halaman
+
+        if (elem.requestFullscreen) {
+          elem.requestFullscreen();
+        } else if (elem.webkitRequestFullscreen) { // Safari
+          elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) { // IE/Edge
+          elem.msRequestFullscreen();
+        }
+
+        // Sembunyikan instruksi setelah 2 detik
+        setTimeout(() => {
+          instructionEl.style.opacity = '0';
+        }, 2000);
+      }
+
+      // Keluar fullscreen (opsional, tapi kita handle)
+      function exitFullscreen() {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) {
+          document.msExitFullscreen();
+        }
+      }
+
+      // Toggle fullscreen saat container diklik
+      container.addEventListener('click', function() {
+        // Cek apakah sudah dalam keadaan fullscreen
+        if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+          enterFullscreen();
+        } else {
+          exitFullscreen();
+        }
+      });
+
+      // Jika user keluar fullscreen secara manual (tekan ESC), munculkan instruksi lagi
+      document.addEventListener('fullscreenchange', handleFullscreenChange);
+      document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+      document.addEventListener('msfullscreenchange', handleFullscreenChange);
+
+      function handleFullscreenChange() {
+        if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+          // Tidak dalam fullscreen → munculkan instruksi
+          instructionEl.style.opacity = '1';
+        } else {
+          // Masuk fullscreen → sembunyikan instruksi
+          instructionEl.style.opacity = '0';
+        }
+      }
+
+      // Cegah perilaku default scroll/page zoom yang mengganggu fullscreen
+      window.addEventListener('touchmove', e => e.preventDefault(), { passive: false });
+      window.addEventListener('gesturestart', e => e.preventDefault());
+      window.addEventListener('gesturechange', e => e.preventDefault());
+      window.addEventListener('gestureend', e => e.preventDefault());
+
+      // Sembunyikan address bar dengan teknik scroll (opsional, untuk yang tidak support fullscreen API)
+      window.addEventListener('load', function() {
+        // Scroll sedikit untuk menyembunyikan address bar di Chrome Android lama
+        window.scrollTo(0, 1);
+      });
+
+      // Cegah pull-to-refresh
+      window.addEventListener('touchstart', e => {
+        if (e.touches.length > 1) e.preventDefault();
+      }, { passive: false });
     })();
   </script>
 </body>
