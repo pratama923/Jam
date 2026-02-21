@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jam Digital · Landscape Estetik</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      /* background gambar langsung dari link yang diberikan */
+      background-image: url("https://large-blush-etdigtzzk0.edgeone.app/6c99b5492a6950ca1413246beb804662.jpg");
+      background-size: cover;
+      background-position: center 30%;     /* geser sedikit agar fokus lebih artistik */
+      background-repeat: no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Orbitron', sans-serif;
+      position: relative;
+    }
+
+    /* overlay gelap dengan efek gradien & blur — lebih dalam, tetap estetik */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 20% 50%, rgba(0, 30, 30, 0.4) 0%, rgba(0, 0, 0, 0.7) 90%);
+      backdrop-filter: blur(8px) saturate(180%);
+      -webkit-backdrop-filter: blur(8px) saturate(180%);
+      z-index: 0;
+    }
+
+    /* container utama — LANDSCAPE lebar, rendah, futuristik */
+    .clock-landscape {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(30px, 6vw, 80px);
+      padding: 2.2rem 4rem;
+      background: rgba(8, 20, 16, 0.25);
+      border-radius: 48px;
+      border: 1px solid rgba(0, 255, 200, 0.25);
+      box-shadow: 0 40px 100px rgba(0, 20, 10, 0.8),
+                  0 0 0 2px rgba(0, 255, 213, 0.1) inset,
+                  0 0 50px #00ffbb30;
+      backdrop-filter: blur(30px) brightness(1.2);
+      -webkit-backdrop-filter: blur(30px) brightness(1.2);
+      transform: scale(1);
+      transition: box-shadow 0.3s ease;
+    }
+
+    .clock-landscape:hover {
+      box-shadow: 0 50px 120px rgba(0, 255, 213, 0.3), 0 0 0 3px #00ffcc40 inset;
+    }
+
+    /* bagian jam — besar, glowing, jelas */
+    .time {
+      font-size: 130px;
+      font-weight: 800;
+      letter-spacing: 12px;
+      color: #bffff0;
+      text-shadow: 0 0 15px #00ffe1, 0 0 45px #00c8b0, 2px 2px 0px #00100e;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+      transition: text-shadow 0.2s;
+      white-space: nowrap;
+    }
+
+    .clock-landscape:hover .time {
+      text-shadow: 0 0 25px #a0fff0, 0 0 70px #00ffe1, 0 0 120px #007a6e;
+    }
+
+    /* info samping — lebih estetis, rapi */
+    .info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+      border-left: 2px solid #00ffdd60;
+      padding-left: 30px;
+    }
+
+    .date {
+      font-size: 28px;
+      font-weight: 500;
+      color: #f0ffff;
+      letter-spacing: 2.5px;
+      text-shadow: 0 0 20px #00ffe0, 0 2px 5px black;
+      white-space: nowrap;
+    }
+
+    .label {
+      font-size: 14px;
+      font-weight: 300;
+      letter-spacing: 7px;
+      text-transform: uppercase;
+      color: #a0f0e0;
+      background: rgba(0, 40, 30, 0.4);
+      padding: 6px 18px;
+      border-radius: 40px;
+      backdrop-filter: blur(10px);
+      border: 1px solid #00ffcc40;
+      box-shadow: 0 0 20px #00ffcc20;
+    }
+
+    /* micro-loader / sentuhan kecil */
+    .glow-dot {
+      display: none;
+    }
+
+    /* responsive — landscape di hp tetap seimbang */
+    @media (max-width: 800px) {
+      .clock-landscape {
+        gap: 20px;
+        padding: 1.5rem 2rem;
+        border-radius: 40px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .time {
+        font-size: 80px;
+        letter-spacing: 6px;
+      }
+
+      .info {
+        border-left: none;
+        padding-left: 0;
+        align-items: center;
+        gap: 8px;
+        width: 100%;
+      }
+
+      .date {
+        font-size: 20px;
+        letter-spacing: 1px;
+        white-space: normal;
+        text-align: center;
+      }
+
+      .label {
+        letter-spacing: 4px;
+        font-size: 12px;
+        padding: 4px 12px;
+      }
+    }
+
+    /* untuk hp kecil (landscape tetap proporsional) */
+    @media (max-width: 480px) and (orientation: landscape) {
+      .time {
+        font-size: 60px;
+        letter-spacing: 4px;
+      }
+      .clock-landscape {
+        padding: 1rem 1.5rem;
+      }
+      .date {
+        font-size: 16px;
+      }
+    }
+
+    /* sentimen tambahan — garis bawah berkilau (opsional) */
+    .clock-landscape::after {
+      content: '';
+      position: absolute;
+      bottom: -12px;
+      left: 15%;
+      width: 70%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #00ffdd, #a0fff0, #00ffdd, transparent);
+      filter: blur(2px);
+      opacity: 0.7;
+      border-radius: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="clock-landscape">
+    <!-- Waktu utama -->
+    <div class="time" id="time">22:14:07</div>
+
+    <!-- Informasi pendukung -->
+    <div class="info">
+      <div class="date" id="date">Jumat, 22 Maret 2024</div>
+      <div class="label">HORIZON · EDT</div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      "use strict";
+
+      const timeElement = document.getElementById('time');
+      const dateElement = document.getElementById('date');
+
+      // opsi format tanggal lebih estetik (Indonesia)
+      const dateOptions = {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: '2-digit'
+      };
+
+      function updateClock() {
+        const now = new Date();
+
+        // jam: menit: detik dengan leading zero
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        timeElement.textContent = `${hours}:${minutes}:${seconds}`;
+
+        // tanggal dengan bahasa Indonesia
+        const dayName = now.toLocaleDateString('id-ID', { weekday: 'long' });
+        const dayNumber = String(now.getDate()).padStart(2, '0');
+        const monthName = now.toLocaleDateString('id-ID', { month: 'long' });
+        const year = now.getFullYear();
+
+        // Contoh: "Sabtu, 22 Maret 2025" tanpa angka 0 di depan (sudah pakai padStart)
+        dateElement.textContent = `${dayName}, ${dayNumber} ${monthName} ${year}`;
+      }
+
+      // update tiap detik
+      setInterval(updateClock, 1000);
+      updateClock(); // langsung tampilkan
+    })();
+  </script>
+</body>
+</html>
